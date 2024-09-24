@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify
+from src.predictive_model import build_predictive_model  # Import the function to build the model
 
+# Load the model once, at the global level
+model = build_predictive_model()
 app = Flask(__name__)
 
 # Add this route for the root URL
