@@ -1,10 +1,13 @@
-# app.py
 from flask import Flask, request, jsonify
-from src.predictive_model import build_predictive_model
 
 app = Flask(__name__)
-model = build_predictive_model()
 
+# Add this route for the root URL
+@app.route('/')
+def home():
+    return "<h1>Welcome to the Route Optimization API</h1>"
+
+# Your existing predict route
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
@@ -12,6 +15,7 @@ def predict():
     traffic = data['traffic']
     volume = data['volume']
 
+    # Assuming you have a model loaded already
     prediction = model.predict([[distance, traffic, volume]])[0]
     return jsonify({'predicted_delivery_time': prediction})
 
